@@ -1,0 +1,119 @@
+
+from tkinter import*
+from PIL import ImageTk,Image
+from tkinter import messagebox as MessageBox
+from tkinter import colorchooser as ColorChooser
+import time 
+import pygame,sys
+from pygame.locals import*
+from tkinter import filedialog
+pygame.init() #usando libreria
+
+
+root=Tk()
+root.title("Ejercicio A")
+root.geometry("450x800")
+ventanaprincipal=Frame(root,width=1000,height=1000,bg="gray")
+ventanaprincipal.grid()
+
+def clock():
+    HoraDeReloj=time.strftime("%H")
+    MinutosDeReloj=time.strftime("%M")
+    SegundosDeReloj=time.strftime("%S")
+    Tiempo=time.strftime(HoraDeReloj+":"+MinutosDeReloj+":"+SegundosDeReloj)
+    Labelreloj.config(text=Tiempo)
+    Labelreloj.after(1000,clock)
+   
+    if(HoraDeReloj==entryhoras.get()):
+        if(MinutosDeReloj==EntryMinutos.get()):
+            if(SegundosDeReloj=="00"):
+                pygame.mixer.music.play()
+                respuesta=MessageBox.askquestion("AskQuestion","Desea pausar la alarma?")
+                if(respuesta=="yes"):
+                    pygame.mixer.music.stop()
+def alarmapotente():
+    MessageBox.showwarning("ShowWarning","Alarma establecida")
+def mostraralarma():
+     MessageBox.showwarning("ShowWarning",entryhoras.get()+":"+EntryMinutos.get())
+def mostrarmusica():
+    cancion=filedialog.askopenfilename()
+    pygame.mixer.music.load(cancion)
+
+############################################# TITULO #######################################33
+LabelTITULO=Label(ventanaprincipal,
+            text="ALARMA",
+             font=("Times",14,"bold"),
+             background="gray",#color de fondo
+             foreground="black", #color de letras
+             width=8,#espacios en X
+             height=2, #espacios en Y
+             
+             #anchor=N, #mover a los lados
+             justify=CENTER,
+             
+            )
+LabelTITULO.place(x=180,y=1)
+
+########################################################################################################
+
+
+############################# LABEL HORA  y entry ###################################
+
+
+LabelHORA=Label(ventanaprincipal,
+            text="H",
+             font=("Times",14,"bold"),
+             background="gray",#color de fondo
+             foreground="black", #color de letras
+             width=8,#espacios en X
+             height=2, #espacios en Y
+             
+             #anchor=N, #mover a los lados
+             justify=CENTER,
+             
+            )
+LabelHORA.place(x=20,y=100)
+
+entryhoras=StringVar()
+entradahoras=Entry(ventanaprincipal,font=("Times",12),textvariable=entryhoras).place(x=160,y=110)
+LabelHORA=Label(ventanaprincipal,
+            text="M",
+             font=("Times",14,"bold"),
+             background="gray",#color de fondo
+             foreground="black", #color de letras
+             width=8,#espacios en X
+             height=2, #espacios en Y
+             
+             #anchor=N, #mover a los lados
+             justify=CENTER,
+             
+            )
+LabelHORA.place(x=20,y=200)
+
+EntryMinutos=StringVar()
+EntradaMinutos=Entry(ventanaprincipal,font=("Times",12),textvariable=EntryMinutos).place(x=160,y=210)
+Labelreloj=Label(ventanaprincipal,
+            
+             font=("Times",14,"bold"),
+             background="gray",#color de fondo
+             foreground="black", #color de letras
+             width=8,#espacios en X
+             height=2, #espacios en Y
+             
+             #anchor=N, #mover a los lados
+             justify=CENTER,
+             
+            )
+Labelreloj.place(x=170,y=250)
+ButtonSetAlarma=Button(ventanaprincipal,font=("Times",14,"bold"),text="Set Alarma",command=alarmapotente).place(x=160,y=350)
+ButtonRegistrar=Button(ventanaprincipal,font=("Times",14,"bold"),text="Valor alarma",command=mostraralarma).place(x=150,y=400)
+ButtonMP3=Button(ventanaprincipal,font=("Times",14,"bold"),text="Seleccionar Musica",command=mostrarmusica).place(x=125,y=450)
+
+
+
+
+
+
+
+
+
